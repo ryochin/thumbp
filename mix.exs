@@ -1,29 +1,56 @@
 defmodule Thumbp.MixProject do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [
       app: :thumbp,
-      version: "0.1.0",
+      version: @version,
       elixir: "~> 1.14",
-      start_permanent: Mix.env() == :prod,
-      deps: deps()
+      build_embedded: Mix.env == :prod,
+      description: description(),
+      package: package(),
+      deps: deps(),
+      name: "ThumbP",
+      docs: docs()
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: []
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:ex_doc, "~> 0.10", only: :dev},
       {:benchee, "~> 1.0", only: :dev},
       {:image, "~> 0.38", only: :dev},
       {:rustler, "~> 0.30.0"}
+    ]
+  end
+
+  defp description do
+    "An ultra-fast WebP thumbnail generator"
+  end
+
+  defp package do
+    [
+      maintainers: ["Ryo Okamoto"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/ryochin/thumbp"},
+      files: ~w(mix.exs README.md benchmark lib native test LICENSE .formatter.exs)
+    ]
+  end
+
+  defp docs do
+    [
+      extras: ["README.md"],
+      main: "readme",
+      source_ref: "v#{@version}",
+      source_url: "https://github.com/ryochin/thumbp"
     ]
   end
 end

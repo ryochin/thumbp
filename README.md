@@ -1,6 +1,10 @@
 ⚡ Thumbp: Ultra-Fast WebP Thumbnail Generator for Elixir
 ========================================================
 
+[![Hex.pm](https://img.shields.io/hexpm/v/thumbp.svg)](https://hex.pm/packages/thumbp)
+[![Hexdocs.pm](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/thumbp/)
+[![License](https://img.shields.io/hexpm/l/thumbp.svg)](https://github.com/ryochin/thumbp/blob/master/LICENSE)
+
 Thumbp is a highly efficient thumbnail creation library for Elixir, designed to output with the [WebP](https://developers.google.com/speed/webp) image format for optimal speed and performance.
 
 Prerequisites
@@ -27,7 +31,7 @@ The package can be installed by adding `thumbp` to your list of dependencies in 
 ```elixir
 def deps do
   [
-    {:thumbp, "~> 0.1.0", github: "ryochin/thumbp"}
+    {:thumbp, "~> 0.1.0"}
   ]
 end
 ```
@@ -80,3 +84,8 @@ Comparison:
 thumbp                  67.46
 image (libvips)         19.41 - 3.48x slower +36.70 ms
 ```
+
+License
+-------
+
+The MIT License
