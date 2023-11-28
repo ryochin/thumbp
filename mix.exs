@@ -28,7 +28,8 @@ defmodule Thumbp.MixProject do
       {:ex_doc, "~> 0.10", only: :dev},
       {:benchee, "~> 1.0", only: :dev},
       {:image, "~> 0.38", only: :dev},
-      {:rustler, "~> 0.30.0"}
+      {:rustler_precompiled, "~> 0.7"},
+      {:rustler, "~> 0.30.0", optional: true}
     ]
   end
 
@@ -41,7 +42,7 @@ defmodule Thumbp.MixProject do
       maintainers: ["Ryo Okamoto"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/ryochin/thumbp"},
-      files: ~w(mix.exs README.md benchmark lib native test LICENSE .formatter.exs)
+      files: ~w(mix.exs README.md benchmark lib native test LICENSE checksum-*.exs .formatter.exs)
     ]
   end
 

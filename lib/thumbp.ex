@@ -3,7 +3,14 @@ defmodule Thumbp do
   A Fastest WebP image thumbnail creator for Elixir.
   """
 
-  use Rustler, otp_app: :thumbp, crate: "thumbp"
+  version = Mix.Project.config()[:version]
+
+  use RustlerPrecompiled,
+    otp_app: :thumbp,
+    crate: "thumbp",
+    base_url: "https://github.com/ryochin/thumbp/releases/download/v#{version}",
+    force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+    version: version
 
   @type body :: binary
   @type width :: pos_integer

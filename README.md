@@ -7,21 +7,7 @@
 
 Thumbp is a highly efficient thumbnail creation library for Elixir, designed to output with the [WebP](https://developers.google.com/speed/webp) image format for optimal speed and performance.
 
-Prerequisites
--------------
-
-**Note:** This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
-
-Follow the instructions at [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) to install Rust.
-
-Verify the installation by checking the `cargo` command version:
-
-```sh
-cargo --version
-# Should output something like: cargo 1.68.1 (115f34552 2023-02-26)
-```
-
-That's all. No need for ImageMagick, FFmpeg, libvips, or any other external libraries.
+No need for ImageMagick, FFmpeg, libvips, or any other external libraries.
 
 Installation
 ------------
