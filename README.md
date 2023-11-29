@@ -3,6 +3,7 @@
 
 [![Hex.pm](https://img.shields.io/hexpm/v/thumbp.svg)](https://hex.pm/packages/thumbp)
 [![Hexdocs.pm](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/thumbp/)
+[![Hex.pm](https://img.shields.io/hexpm/dt/thumbp.svg)](https://hex.pm/packages/thumbp)
 [![License](https://img.shields.io/hexpm/l/thumbp.svg)](https://github.com/ryochin/thumbp/blob/master/LICENSE)
 
 Thumbp is a highly efficient thumbnail creation library for Elixir, designed to output with the [WebP](https://developers.google.com/speed/webp) image format for optimal speed and performance.
@@ -69,6 +70,28 @@ image (libvips)         19.41       51.52 ms    ±14.68%       50.01 ms       77
 Comparison:
 thumbp                  67.46
 image (libvips)         19.41 - 3.48x slower +36.70 ms
+```
+
+Development
+-----------
+
+### Prerequisites
+
+**Note:** This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
+
+Follow the instructions at [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) to install Rust.
+
+Verify the installation by checking the `cargo` command version:
+
+```sh
+cargo --version
+# Should output something like: cargo 1.68.1 (115f34552 2023-02-26)
+```
+
+Then, set the `RUSTLER_PRECOMPILATION_EXAMPLE_BUILD` environment variable to ensure that local sources are compiled instead of downloading a precompiled library file.
+
+```sh
+RUSTLER_PRECOMPILATION_EXAMPLE_BUILD=1 mix compile
 ```
 
 License
