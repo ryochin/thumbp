@@ -74,16 +74,12 @@ defmodule Thumbp do
 
   @spec create(body, width, height, quality, target_size) ::
           {:ok, binary} | {:error, String.t()}
-  defp create(body, width, height, quality, target_size) do
-    case _create(body, width, height, quality, target_size) do
-      binary when is_binary(binary) -> {:ok, binary}
-      error -> error
-    end
-  end
+  defp create(body, width, height, quality, target_size),
+    do: _create(body, width, height, quality, target_size)
 
   # NIF function definition
   @spec _create(body, width, height, quality, target_size) ::
-          binary | {:error, String.t()}
+          {:ok, binary} | {:error, String.t()}
   defp _create(_body, _width, _height, _quality, _target_size),
     do: :erlang.nif_error(:nif_not_loaded)
 end

@@ -1,4 +1,5 @@
-use rustler::{Binary, NifResult, OwnedBinary};
+use rustler::types::tuple::make_tuple;
+use rustler::{Binary, NifResult, Env, Term, OwnedBinary, Encoder};
 
 use image::DynamicImage::{self, ImageRgba8};
 use image::{imageops, EncodableLayout};
@@ -7,14 +8,21 @@ use webp::{Encoder as WebPEncoder, WebPConfig};
 
 const DEFAULT_QUALITY: f32 = 60.0;
 
+mod atoms {
+    rustler::atoms! {
+        ok
+    }
+}
+
 #[rustler::nif(schedule = "DirtyCpu")]
-fn _create(
-    body: Binary,
+fn _create<'a>(
+    env: Env<'a>,
+    body: Binary<'a>,
     width: u32,
     height: u32,
     quality: Option<f32>,
     target_size: Option<u32>,
-) -> NifResult<OwnedBinary> {
+) -> NifResult<Term<'a>> {
     let image: DynamicImage =
         image::load_from_memory(body.as_slice()).map_err(|e| err_str(e.to_string()))?;
 
@@ -36,7 +44,9 @@ fn _create(
 
     binary.as_mut_slice().copy_from_slice(&bytes);
 
-    Ok(binary)
+    let ok = atoms::ok().encode(env);
+
+    Ok(make_tuple(env, &[ok, binary.release(env).encode(env)]))
 }
 
 fn err_str(error: String) -> rustler::Error {
