@@ -8,7 +8,7 @@ defmodule Thumbp.MixProject do
       app: :thumbp,
       version: @version,
       elixir: "~> 1.14",
-      build_embedded: Mix.env == :prod,
+      build_embedded: Mix.env() == :prod,
       description: description(),
       package: package(),
       deps: deps(),

@@ -4,26 +4,11 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/thumbp.svg)](https://hex.pm/packages/thumbp)
 [![Hexdocs.pm](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/thumbp/)
 [![Hex.pm](https://img.shields.io/hexpm/dt/thumbp.svg)](https://hex.pm/packages/thumbp)
-[![License](https://img.shields.io/hexpm/l/thumbp.svg)](https://github.com/ryochin/thumbp/blob/master/LICENSE)
+[![License](https://img.shields.io/hexpm/l/thumbp.svg)](https://github.com/ryochin/thumbp/blob/main/LICENSE)
 
 Thumbp is a highly efficient thumbnail creation library for Elixir, designed to output with the [WebP](https://developers.google.com/speed/webp) image format for optimal speed and performance.
 
 No need for ImageMagick, FFmpeg, libvips, or any other external libraries.
-
-Installation
-------------
-
-The package can be installed by adding `thumbp` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:thumbp, "~> 0.1.0"}
-  ]
-end
-```
-
-Then, run `mix deps.get`.
 
 Usage
 -----
@@ -51,6 +36,21 @@ iex> Thumbp.create(content, 160, 120, target_size: 4_096)    # set to 4KB
 ```
 
 **Note:** The `quality` and `target_size` options are exclusive.
+
+Installation
+------------
+
+The package can be installed by adding `thumbp` to your list of dependencies in `mix.exs`:
+
+```elixir
+def deps do
+  [
+    {:thumbp, "~> 0.1.0"}
+  ]
+end
+```
+
+Then, run `mix deps.get`.
 
 Benchmark
 ---------
