@@ -57,7 +57,7 @@ fn webp_config(quality: Option<f32>, target_size: Option<u32>) -> NifResult<WebP
     let mut config: WebPConfig =
         WebPConfig::new().map_err(|_| err_str("failed to create WebP config".to_string()))?;
 
-    config.method = 2;
+    config.method = 3;
     config.image_hint = WebPImageHint::WEBP_HINT_PHOTO;
     config.sns_strength = 70;
     config.filter_sharpness = 2;
