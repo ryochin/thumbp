@@ -91,4 +91,4 @@ fn calc_dimension(image: &DynamicImage, width: u32, height: u32) -> (u32, u32) {
     }
 }
 
-rustler::init!("Elixir.Thumbp", [_create]);
+rustler::init!("Elixir.Thumbp");

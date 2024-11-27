@@ -25,11 +25,12 @@ defmodule Thumbp.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.10", only: :dev},
-      {:benchee, "~> 1.0", only: :dev},
-      {:image, "~> 0.38", only: :dev},
-      {:rustler_precompiled, "~> 0.7"},
-      {:rustler, "~> 0.30.0", optional: true}
+      {:ex_doc, "~> 0.35", only: :dev},
+      {:benchee, "~> 1.3", only: :dev},
+      {:image, "~> 0.54", only: :dev},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:rustler_precompiled, "~> 0.8"},
+      {:rustler, "~> 0.30", optional: true}
     ]
   end
 
