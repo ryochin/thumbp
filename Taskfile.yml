@@ -63,6 +63,8 @@ tasks:
 
   rustler-precompiled-download:
     desc: Download precompiled files info
+    env:
+      RUSTLER_PRECOMPILATION_EXAMPLE_BUILD: 1
     cmds:
       - "mix rustler_precompiled.download {{.PROJECT_NAME}} --all --print"
 
