@@ -20,6 +20,14 @@ defmodule ThumbpTest do
     assert {:ok, _thumbnail} = Thumbp.create(state[:content], @width, @height, target_size: 5_000)
   end
 
+  test "returns an error with quality & target size", state do
+    assert {:error, "quality and target_size options are exclusive"} = Thumbp.create(state[:content], @width, @height, quality: 50, target_size: 5_000)
+  end
+
+  test "returns an error with unknown options", state do
+    assert {:error, "unknown options"} = Thumbp.create(state[:content], @width, @height, foo: 50, bar: 5_000)
+  end
+
   test "returns an error with empty body" do
     assert {:error, "The image format could not be determined"} =
              Thumbp.create(<<0>>, @width, @height)

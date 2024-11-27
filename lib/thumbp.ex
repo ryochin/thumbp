@@ -59,6 +59,15 @@ defmodule Thumbp do
       when is_integer(target_size),
       do: create(body, width, height, nil, target_size)
 
+  @spec create(body, width, height, quality: quality, target_size: target_size) ::
+          {:error, String.t()}
+  def create(_, _, _, quality: quality, target_size: target_size)
+      when is_integer(quality) and is_integer(target_size),
+      do: {:error, "quality and target_size options are exclusive"}
+
+  @spec create(body, width, height, list) :: {:error, String.t()}
+  def create(_, _, _, opts) when is_list(opts), do: {:error, "unknown options"}
+
   defp create(body, _, _, _, _) when is_nil(body), do: {:error, "body is empty"}
   defp create(_, width, _, _, _) when width <= 0, do: {:error, "width must be > 0"}
   defp create(_, _, height, _, _) when height <= 0, do: {:error, "height must be > 0"}
