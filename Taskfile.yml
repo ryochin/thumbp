@@ -36,11 +36,30 @@ tasks:
     cmds:
       - mix test --trace
 
+  check:
+    desc: Check codes
+    cmds:
+      - task: dialyzer
+      - task: clippy
+
+  dialyzer:
+    desc: Run dialyzer
+    cmd: mix dialyzer
+
+  clippy:
+    desc: Run clippy
+    dir: native/thumbp
+    cmd: cargo clippy
+
   clean:
     desc: Clean up
     cmds:
       - mix clean
       - rm -f priv/native/*.so
+
+  benchmark:
+    desc: Run benchmark
+    cmd: mix run benchmark/benchmark.exs
 
   rustler-precompiled-download:
     desc: Download precompiled files info

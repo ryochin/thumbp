@@ -1,5 +1,5 @@
-⚡ Thumbp: Ultra-Fast WebP Thumbnail Generator for Elixir
-========================================================
+⚡ Thumbp: A Lightweight & Fast WebP Thumbnail Image Generator
+==============================================================
 
 [![Hex.pm](https://img.shields.io/hexpm/v/thumbp.svg)](https://hex.pm/packages/thumbp)
 [![Hexdocs.pm](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/thumbp/)
@@ -64,12 +64,12 @@ mix run benchmark/benchmark.exs
 
 ```text
 Name                      ips        average  deviation         median         99th %
-thumbp                  67.46       14.82 ms    ±10.06%       14.50 ms       22.86 ms
-image (libvips)         19.41       51.52 ms    ±14.68%       50.01 ms       77.67 ms
+thumbp                  86.98       11.50 ms     ±7.53%       11.25 ms       15.64 ms
+image (libvips)         73.95       13.52 ms    ±13.13%       12.99 ms       21.96 ms
 
 Comparison:
-thumbp                  67.46
-image (libvips)         19.41 - 3.48x slower +36.70 ms
+thumbp                  86.98
+image (libvips)         73.95 - 1.18x slower +2.03 ms
 ```
 
 Development
@@ -85,7 +85,7 @@ Verify the installation by checking the `cargo` command version:
 
 ```sh
 cargo --version
-# Should output something like: cargo 1.82.0 (8f40fc59f 2024-08-21)
+# Should output something like: cargo 1.68.1 (115f34552 2023-02-26)
 ```
 
 Then, set the `RUSTLER_PRECOMPILATION_EXAMPLE_BUILD` environment variable to ensure that local sources are compiled instead of downloading a precompiled library file.

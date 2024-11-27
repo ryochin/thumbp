@@ -35,7 +35,7 @@ defmodule Thumbp.MixProject do
   end
 
   defp description do
-    "An ultra-fast WebP thumbnail image generator"
+    "A Lightweight & Fast WebP Thumbnail Image Generator"
   end
 
   defp package do
