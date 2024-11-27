@@ -42,7 +42,7 @@ fn _create<'a>(
     let mut binary: OwnedBinary = OwnedBinary::new(bytes.len())
         .ok_or_else(|| err_str("failed to allocate binary".to_string()))?;
 
-    binary.as_mut_slice().copy_from_slice(&bytes);
+    binary.as_mut_slice().copy_from_slice(bytes);
 
     let ok = atoms::ok().encode(env);
 
