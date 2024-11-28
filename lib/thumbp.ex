@@ -15,8 +15,8 @@ defmodule Thumbp do
   @type body :: binary
   @type width :: pos_integer
   @type height :: pos_integer
-  @type quality :: float | non_neg_integer
-  @type target_size :: pos_integer
+  @type quality :: float | non_neg_integer | nil
+  @type target_size :: pos_integer | nil
 
   @doc """
   Create a thumbnail image
@@ -48,19 +48,13 @@ defmodule Thumbp do
       iex> Thumbp.create(content, 320, 240, quality: 50)
       iex> Thumbp.create(content, 320, 240, target_size: 12_000)
   """
-  @spec create(body, width, height, quality: quality) ::
-          {:ok, binary} | {:error, String.t()}
   def create(body, width, height, quality: quality) when is_number(quality),
     do: create(body, width, height, quality / 1, nil)
 
-  @spec create(body, width, height, target_size: target_size) ::
-          {:ok, binary} | {:error, String.t()}
   def create(body, width, height, target_size: target_size)
       when is_integer(target_size),
       do: create(body, width, height, nil, target_size)
 
-  @spec create(body, width, height, quality: quality, target_size: target_size) ::
-          {:error, String.t()}
   def create(_, _, _, quality: quality, target_size: target_size)
       when is_integer(quality) and is_integer(target_size),
       do: {:error, "quality and target_size options are exclusive"}
