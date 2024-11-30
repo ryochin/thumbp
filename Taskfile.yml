@@ -2,6 +2,7 @@ version: '3'
 
 vars:
   PROJECT_NAME: Thumbp
+  PROJECT_DIR_NAME: thumbp
 
 tasks:
   compile:
@@ -48,7 +49,7 @@ tasks:
 
   clippy:
     desc: Run clippy
-    dir: native/thumbp
+    dir: "native/{{.PROJECT_DIR_NAME}}"
     cmd: cargo clippy
 
   clean:
@@ -56,6 +57,7 @@ tasks:
     cmds:
       - mix clean
       - rm -f priv/native/*.so
+      - "rm -rf native/{{.PROJECT_DIR_NAME}}/target/*/build"
 
   benchmark:
     desc: Run benchmark
@@ -67,6 +69,13 @@ tasks:
       RUSTLER_PRECOMPILATION_EXAMPLE_BUILD: 1
     cmds:
       - "mix rustler_precompiled.download {{.PROJECT_NAME}} --all --print"
+
+  publish:
+    desc: Publish to hex.pm
+    prompt: Are you sure to publish?
+    cmds:
+      - "rm -rf native/{{.PROJECT_DIR_NAME}}/target"
+      - mix hex.publish
 
   default:
     cmds:

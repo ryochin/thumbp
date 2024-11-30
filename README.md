@@ -55,8 +55,8 @@ Then, run `mix deps.get`.
 Benchmark
 ---------
 
-* Input: 1280x960 JPEG (85% quality), 171.5KB
-* Output: 320x240 WebP (50% quality), ~2.2KB
+* Input: [1280x960 JPEG](https://github.com/ryochin/thumbp/blob/main/test/assets/images/sample.jpg) (85% quality), 171.5KB
+* Output: 320x240 WebP (50% quality), ~2.4KB
 
 ```sh
 mix run benchmark/benchmark.exs
@@ -85,7 +85,7 @@ Verify the installation by checking the `cargo` command version:
 
 ```sh
 cargo --version
-# Should output something like: cargo 1.68.1 (115f34552 2023-02-26)
+# Should output something like: cargo 1.82.0 (8f40fc59f 2024-08-21)
 ```
 
 Then, set the `RUSTLER_PRECOMPILATION_EXAMPLE_BUILD` environment variable to ensure that local sources are compiled instead of downloading a precompiled library file.

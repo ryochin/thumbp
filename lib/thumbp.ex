@@ -1,6 +1,6 @@
 defmodule Thumbp do
   @moduledoc """
-  A Fastest WebP image thumbnail creator for Elixir.
+  A Lightweight & Fast WebP Thumbnail Image Generator
   """
 
   version = Mix.Project.config()[:version]
