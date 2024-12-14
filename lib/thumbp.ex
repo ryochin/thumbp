@@ -59,7 +59,7 @@ defmodule Thumbp do
       when is_integer(quality) and is_integer(target_size),
       do: {:error, "quality and target_size options are exclusive"}
 
-  @spec create(body, width, height, list) :: {:error, String.t()}
+  @spec create(body, width, height, list) :: {:ok, binary} | {:error, String.t()}
   def create(_, _, _, opts) when is_list(opts), do: {:error, "unknown options"}
 
   defp create(body, _, _, _, _) when is_nil(body), do: {:error, "body is empty"}
