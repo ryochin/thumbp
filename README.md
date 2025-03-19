@@ -35,7 +35,8 @@ You can also define a target size, although which may increase the processing ti
 iex> Thumbp.create(content, 160, 120, target_size: 4_096)    # set to 4KB
 ```
 
-**Note:** The `quality` and `target_size` options are exclusive.
+> [!Tip]
+> The `quality` and `target_size` options are exclusive.
 
 Installation
 ------------
@@ -77,7 +78,8 @@ Development
 
 ### Prerequisites
 
-**Note:** This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
+> [!NOTE]
+> This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
 
 Follow the instructions at [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) to install Rust.
 
