@@ -35,7 +35,8 @@ You can also define a target size, although which may increase the processing ti
 iex> Thumbp.create(content, 160, 120, target_size: 4_096)    # set to 4KB
 ```
 
-**Note:** The `quality` and `target_size` options are exclusive.
+> [!Tip]
+> The `quality` and `target_size` options are exclusive.
 
 Installation
 ------------
@@ -64,20 +65,23 @@ mix run benchmark/benchmark.exs
 
 ```text
 Name                      ips        average  deviation         median         99th %
-thumbp                  86.98       11.50 ms     ±7.53%       11.25 ms       15.64 ms
-image (libvips)         73.95       13.52 ms    ±13.13%       12.99 ms       21.96 ms
+thumbp                 141.09        7.09 ms     ±1.82%        7.07 ms        7.54 ms
+image (libvips)        113.41        8.82 ms     ±5.13%        8.66 ms       10.60 ms
 
 Comparison:
-thumbp                  86.98
-image (libvips)         73.95 - 1.18x slower +2.03 ms
+thumbp                 141.09
+image (libvips)        113.41 - 1.24x slower +1.73 ms
 ```
+
+on Apple M4 (10) @ 4.46 GHz
 
 Development
 -----------
 
 ### Prerequisites
 
-**Note:** This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
+> [!NOTE]
+> This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
 
 Follow the instructions at [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) to install Rust.
 
