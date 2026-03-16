@@ -15,8 +15,8 @@ defmodule Thumbp do
   @type body :: binary
   @type width :: pos_integer
   @type height :: pos_integer
-  @type quality :: float | non_neg_integer | nil
-  @type target_size :: pos_integer | nil
+
+  @known_opts [:quality, :target_size]
 
   @doc """
   Create a thumbnail image
@@ -28,61 +28,50 @@ defmodule Thumbp do
       {:ok, <<82, 73, 70, 70, 102, 12, 0, 0, 87, 69, 66, 80, ...>>}
   """
   @spec create(body, width, height) :: {:ok, binary} | {:error, String.t()}
-  def create(body, width, height), do: create(body, width, height, nil, nil)
+  def create(body, width, height), do: create(body, width, height, [])
 
   @doc """
   Create a thumbnail image with options
 
-  # Quality
+  ## Options
 
-  The quality ranges from 0 to 100, defaulting to 75.
-
-  # Target size
-
-  You can also specify a target size in bytes, although this will increase the processing time
-  by approximately 20% to 80%.
-
+  - `quality` - The quality ranges from 0 to 100, defaulting to 75.
+  - `target_size` - Target size in bytes. Increases processing time by approximately 20-80%.
+    When both `quality` and `target_size` are given, `target_size` takes precedence.
   ## Examples
 
       iex> content = File.read!("./test/assets/images/sample.jpg")
       iex> Thumbp.create(content, 320, 240, quality: 50)
       iex> Thumbp.create(content, 320, 240, target_size: 12_000)
   """
-  def create(body, width, height, quality: quality) when is_number(quality),
-    do: create(body, width, height, quality / 1, nil)
+  @spec create(body, width, height, keyword) :: {:ok, binary} | {:error, String.t()}
+  def create(body, width, height, opts) when is_list(opts) do
+    quality = Keyword.get(opts, :quality)
+    target_size = Keyword.get(opts, :target_size)
 
-  def create(body, width, height, target_size: target_size)
-      when is_integer(target_size),
-      do: create(body, width, height, nil, target_size)
+    with :ok <- validate(body, width, height, quality, target_size, opts) do
+      _create(body, width, height, quality && quality / 1, target_size)
+    end
+  end
 
-  def create(_, _, _, quality: quality, target_size: target_size)
-      when is_integer(quality) and is_integer(target_size),
-      do: {:error, "quality and target_size options are exclusive"}
-
-  @spec create(body, width, height, list) :: {:ok, binary} | {:error, String.t()}
-  def create(_, _, _, opts) when is_list(opts), do: {:error, "unknown options"}
-
-  defp create(body, _, _, _, _) when is_nil(body), do: {:error, "body is empty"}
-  defp create(_, width, _, _, _) when width <= 0, do: {:error, "width must be > 0"}
-  defp create(_, _, height, _, _) when height <= 0, do: {:error, "height must be > 0"}
-
-  defp create(_, _, _, quality, _) when not is_nil(quality) and quality < 0,
-    do: {:error, "quality must be >= 0"}
-
-  defp create(_, _, _, quality, _) when not is_nil(quality) and quality > 100,
-    do: {:error, "quality must be <= 100"}
-
-  defp create(_, _, _, _, target_size) when not is_nil(target_size) and target_size <= 0,
-    do: {:error, "target_size must be > 0"}
-
-  @spec create(body, width, height, quality, target_size) ::
-          {:ok, binary} | {:error, String.t()}
-  defp create(body, width, height, quality, target_size),
-    do: _create(body, width, height, quality, target_size)
+  @spec validate(body, width, height, number | nil, pos_integer | nil, keyword) ::
+          :ok | {:error, String.t()}
+  defp validate(body, width, height, quality, target_size, opts) do
+    cond do
+      Keyword.keys(opts) -- @known_opts != [] -> {:error, "unknown options"}
+      is_nil(body) -> {:error, "body is empty"}
+      width <= 0 -> {:error, "width must be > 0"}
+      height <= 0 -> {:error, "height must be > 0"}
+      not is_nil(quality) and not is_number(quality) -> {:error, "quality must be a number"}
+      not is_nil(quality) and quality < 0 -> {:error, "quality must be >= 0"}
+      not is_nil(quality) and quality > 100 -> {:error, "quality must be <= 100"}
+      not is_nil(target_size) and target_size <= 0 -> {:error, "target_size must be > 0"}
+      not is_nil(quality) and not is_nil(target_size) -> {:error, "quality and target_size options are exclusive"}
+      true -> :ok
+    end
+  end
 
   # NIF function definition
-  @spec _create(body, width, height, quality, target_size) ::
-          {:ok, binary} | {:error, String.t()}
   defp _create(_body, _width, _height, _quality, _target_size),
     do: :erlang.nif_error(:nif_not_loaded)
 end
