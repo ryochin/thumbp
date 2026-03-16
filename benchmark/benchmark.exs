@@ -4,6 +4,7 @@ defmodule Thumbp.Benchmark do
   @width 320
   @height 240
   @quality 60
+  @effort 3
 
   def run do
     content = File.read!("./test/assets/images/sample.jpg")
@@ -17,7 +18,7 @@ defmodule Thumbp.Benchmark do
   end
 
   def thumbp(content) do
-    {:ok, _} = Thumbp.create(content, @width, @height, quality: @quality)
+    {:ok, _} = Thumbp.create(content, @width, @height, quality: @quality, effort: @effort)
   end
 
   def image(content) do
@@ -30,7 +31,7 @@ defmodule Thumbp.Benchmark do
     do: [
       strip_metadata: true,
       quality: @quality,
-      effort: 7,
+      effort: @effort,
       suffix: ".webp"
     ]
 end

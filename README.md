@@ -38,6 +38,12 @@ iex> Thumbp.create(content, 160, 120, target_size: 4_096)    # set to 4KB
 > [!Tip]
 > The `quality` and `target_size` options are exclusive.
 
+Adjust the encoding effort from 0 (fastest) to 6 (smallest file size). The default is 3.
+
+```elixir
+iex> Thumbp.create(content, 160, 120, effort: 5)
+```
+
 Installation
 ------------
 

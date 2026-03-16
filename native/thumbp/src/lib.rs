@@ -22,6 +22,7 @@ fn _create<'a>(
     height: u32,
     quality: Option<f32>,
     target_size: Option<u32>,
+    effort: Option<u32>,
 ) -> NifResult<Term<'a>> {
     let image: DynamicImage =
         image::load_from_memory(body.as_slice()).map_err(|e| err_str(e.to_string()))?;
@@ -34,7 +35,7 @@ fn _create<'a>(
         WebPEncoder::from_image(&thumbnail).map_err(|e| err_str(e.to_string()))?;
 
     let webp = encoder
-        .encode_advanced(&webp_config(quality, target_size)?)
+        .encode_advanced(&webp_config(quality, target_size, effort)?)
         .map_err(|e| err_str(format!("{:?}", e)))?;
 
     let bytes: &[u8] = webp.as_bytes();
@@ -53,11 +54,11 @@ fn err_str(error: String) -> rustler::Error {
     rustler::Error::Term(Box::new(error))
 }
 
-fn webp_config(quality: Option<f32>, target_size: Option<u32>) -> NifResult<WebPConfig> {
+fn webp_config(quality: Option<f32>, target_size: Option<u32>, effort: Option<u32>) -> NifResult<WebPConfig> {
     let mut config: WebPConfig =
         WebPConfig::new().map_err(|_| err_str("failed to create WebP config".to_string()))?;
 
-    config.method = 3;
+    config.method = effort.map_or(3, |e| e as i32);
     config.image_hint = WebPImageHint::WEBP_HINT_PHOTO;
     config.sns_strength = 70;
     config.filter_sharpness = 2;

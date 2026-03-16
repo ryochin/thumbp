@@ -24,6 +24,14 @@ defmodule ThumbpTest do
     assert {:error, "quality and target_size options are exclusive"} = Thumbp.create(state[:content], @width, @height, quality: 50, target_size: 5_000)
   end
 
+  test "creates a thumbnail with effort", state do
+    assert {:ok, _thumbnail} = Thumbp.create(state[:content], @width, @height, effort: 5)
+  end
+
+  test "creates a thumbnail with quality and effort", state do
+    assert {:ok, _thumbnail} = Thumbp.create(state[:content], @width, @height, quality: 50, effort: 5)
+  end
+
   test "returns an error with unknown options", state do
     assert {:error, "unknown options"} = Thumbp.create(state[:content], @width, @height, foo: 50, bar: 5_000)
   end
@@ -54,5 +62,15 @@ defmodule ThumbpTest do
   test "returns an error with negative target_size", state do
     assert {:error, "target_size must be > 0"} =
              Thumbp.create(state[:content], @width, @height, target_size: 0)
+  end
+
+  test "returns an error with negative effort", state do
+    assert {:error, "effort must be >= 0"} =
+             Thumbp.create(state[:content], @width, @height, effort: -1)
+  end
+
+  test "returns an error with invalid effort", state do
+    assert {:error, "effort must be <= 6"} =
+             Thumbp.create(state[:content], @width, @height, effort: 7)
   end
 end
