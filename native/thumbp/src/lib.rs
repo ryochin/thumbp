@@ -1,10 +1,9 @@
 use rustler::types::tuple::make_tuple;
 use rustler::{Binary, NifResult, Env, Term, OwnedBinary, Encoder};
 
-use image::DynamicImage::{self, ImageRgba8};
-use image::{imageops, EncodableLayout};
+use image::{imageops, DynamicImage};
 use libwebp_sys::WebPImageHint;
-use webp::{Encoder as WebPEncoder, WebPConfig};
+use webp::{Encoder as WebPEncoder, PixelLayout, WebPConfig};
 
 const DEFAULT_QUALITY: f32 = 60.0;
 
@@ -27,18 +26,29 @@ fn _create<'a>(
     let image: DynamicImage =
         image::load_from_memory(body.as_slice()).map_err(|e| err_str(e.to_string()))?;
 
-    let (width, height) = calc_dimension(&image, width, height);
+    let (target_width, target_height) = calc_dimension(&image, width, height);
+    let config = webp_config(quality, target_size, effort)?;
 
-    let thumbnail: DynamicImage = ImageRgba8(imageops::thumbnail(&image, width, height));
+    // Match on DynamicImage variant to avoid channel promotion:
+    //   - Rgb8 inputs (e.g. JPEG) stay as RGB throughout resize and encode
+    //   - Everything else normalizes to RGBA8 (zero-copy for ImageRgba8 via into_rgba8)
+    let (thumb_raw, pixel_layout) = match image {
+        DynamicImage::ImageRgb8(buf) => {
+            let thumb = imageops::thumbnail(&buf, target_width, target_height);
+            (thumb.into_raw(), PixelLayout::Rgb)
+        }
+        other => {
+            let rgba = other.into_rgba8();
+            let thumb = imageops::thumbnail(&rgba, target_width, target_height);
+            (thumb.into_raw(), PixelLayout::Rgba)
+        }
+    };
 
-    let encoder: WebPEncoder =
-        WebPEncoder::from_image(&thumbnail).map_err(|e| err_str(e.to_string()))?;
-
-    let webp = encoder
-        .encode_advanced(&webp_config(quality, target_size, effort)?)
+    let webp = WebPEncoder::new(&thumb_raw, pixel_layout, target_width, target_height)
+        .encode_advanced(&config)
         .map_err(|e| err_str(format!("{:?}", e)))?;
 
-    let bytes: &[u8] = webp.as_bytes();
+    let bytes: &[u8] = &webp;
 
     let mut binary: OwnedBinary = OwnedBinary::new(bytes.len())
         .ok_or_else(|| err_str("failed to allocate binary".to_string()))?;
