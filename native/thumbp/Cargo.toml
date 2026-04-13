@@ -13,7 +13,7 @@ crate-type = ["cdylib"]
 image = "0.25"
 jpeg-decoder = "0.3"
 libwebp-sys = "0.9"
-rustler = "0.35"
+rustler = "0.37"
 webp = "0.3"
 
 [profile.release]
