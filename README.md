@@ -93,7 +93,7 @@ Verify the installation by checking the `cargo` command version:
 
 ```sh
 cargo --version
-# Should output something like: cargo 1.82.0 (8f40fc59f 2024-08-21)
+# Should output something like: cargo 1.92.0 (344c4567c 2025-10-21)
 ```
 
 Then, set the `RUSTLER_PRECOMPILATION_EXAMPLE_BUILD` environment variable to ensure that local sources are compiled instead of downloading a precompiled library file.
