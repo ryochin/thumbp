@@ -35,7 +35,7 @@ defmodule Thumbp do
 
   ## Options
 
-  - `quality` - The quality ranges from 0 to 100, defaulting to 75.
+  - `quality` - The quality ranges from 0 to 100, defaulting to 60.
   - `target_size` - Target size in bytes. Increases processing time by approximately 20-80%.
   - `effort` - Encoding effort from 0 (fastest) to 6 (smallest file), defaulting to 3.
 

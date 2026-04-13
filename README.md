@@ -23,7 +23,7 @@ iex> Thumbp.create(content, 320, 240)
 
 The `width` and `height` parameters represent the potential maximum sizes, so they do not precisely define the actual dimensions of the image. This implies that the aspect ratio of the image will remain unchanged.
 
-Adjust the quality with an optional parameter ranging from 0 to 100 (default is 75):
+Adjust the quality with an optional parameter ranging from 0 to 100 (default is 60):
 
 ```elixir
 iex> Thumbp.create(content, 160, 120, quality: 50)
@@ -63,7 +63,7 @@ Benchmark
 ---------
 
 * Input: [1280x960 JPEG](https://github.com/ryochin/thumbp/blob/main/test/assets/images/sample.jpg) (85% quality), 171.5KB
-* Output: 320x240 WebP (50% quality), ~2.4KB
+* Output: 320x240 WebP (60% quality), ~2.4KB
 
 ```sh
 mix run benchmark/benchmark.exs
