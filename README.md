@@ -71,13 +71,15 @@ mix run benchmark/benchmark.exs
 
 ```text
 Name                      ips        average  deviation         median         99th %
-thumbp                  86.98       11.50 ms     ±7.53%       11.25 ms       15.64 ms
-image (libvips)         73.95       13.52 ms    ±13.13%       12.99 ms       21.96 ms
+thumbp                 174.05        5.75 ms     ±3.17%        5.73 ms        6.23 ms
+image (libvips)        130.71        7.65 ms     ±3.13%        7.62 ms        8.43 ms
 
 Comparison:
-thumbp                  86.98
-image (libvips)         73.95 - 1.18x slower +2.03 ms
+thumbp                 174.05
+image (libvips)        130.71 - 1.33x slower +1.91 ms
 ```
+
+on macOS Sequoia 15.7.3 arm64, Apple M4 (10) @ 4.46 GHz
 
 Development
 -----------
