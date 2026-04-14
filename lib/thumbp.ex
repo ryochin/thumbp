@@ -75,8 +75,11 @@ defmodule Thumbp do
       Keyword.keys(opts) -- @known_opts != [] ->
         {:error, "unknown options"}
 
-      is_nil(body) ->
-        {:error, "body is empty"}
+      not is_binary(body) ->
+        {:error, "body must be a binary"}
+
+      byte_size(body) == 0 ->
+        {:error, "body must not be empty"}
 
       width <= 0 ->
         {:error, "width must be > 0"}

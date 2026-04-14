@@ -122,7 +122,11 @@ defmodule ThumbpTest do
   end
 
   test "returns an error with nil body" do
-    assert {:error, "body is empty"} = Thumbp.create(nil, @width, @height)
+    assert {:error, "body must be a binary"} = Thumbp.create(nil, @width, @height)
+  end
+
+  test "returns an error with empty body" do
+    assert {:error, "body must not be empty"} = Thumbp.create("", @width, @height)
   end
 
   test "returns an error with invalid image bytes" do
