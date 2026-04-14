@@ -196,11 +196,15 @@ defmodule ThumbpTest do
     {width_minus1 + 1, height_minus1 + 1}
   end
 
-  defp webp_dimensions(<<"RIFF", _size::little-32, "WEBP", chunk_type::binary-size(4), _rest::binary>>) do
+  defp webp_dimensions(
+         <<"RIFF", _size::little-32, "WEBP", chunk_type::binary-size(4), _rest::binary>>
+       ) do
     flunk("unsupported WebP chunk type: #{inspect(chunk_type)}")
   end
 
   defp webp_dimensions(other) do
-    flunk("not a valid WebP binary (first 16 bytes: #{inspect(binary_part(other, 0, min(16, byte_size(other))))})")
+    flunk(
+      "not a valid WebP binary (first 16 bytes: #{inspect(binary_part(other, 0, min(16, byte_size(other))))})"
+    )
   end
 end

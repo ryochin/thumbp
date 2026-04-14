@@ -60,22 +60,53 @@ defmodule Thumbp do
     end
   end
 
-  @spec validate(body, width, height, number | nil, pos_integer | nil, non_neg_integer | nil, keyword) ::
+  @spec validate(
+          body,
+          width,
+          height,
+          number | nil,
+          pos_integer | nil,
+          non_neg_integer | nil,
+          keyword
+        ) ::
           :ok | {:error, String.t()}
   defp validate(body, width, height, quality, target_size, effort, opts) do
     cond do
-      Keyword.keys(opts) -- @known_opts != [] -> {:error, "unknown options"}
-      is_nil(body) -> {:error, "body is empty"}
-      width <= 0 -> {:error, "width must be > 0"}
-      height <= 0 -> {:error, "height must be > 0"}
-      not is_nil(quality) and not is_number(quality) -> {:error, "quality must be a number"}
-      not is_nil(quality) and quality < 0 -> {:error, "quality must be >= 0"}
-      not is_nil(quality) and quality > 100 -> {:error, "quality must be <= 100"}
-      not is_nil(target_size) and target_size <= 0 -> {:error, "target_size must be > 0"}
-      not is_nil(quality) and not is_nil(target_size) -> {:error, "quality and target_size options are exclusive"}
-      not is_nil(effort) and effort < 0 -> {:error, "effort must be >= 0"}
-      not is_nil(effort) and effort > 6 -> {:error, "effort must be <= 6"}
-      true -> :ok
+      Keyword.keys(opts) -- @known_opts != [] ->
+        {:error, "unknown options"}
+
+      is_nil(body) ->
+        {:error, "body is empty"}
+
+      width <= 0 ->
+        {:error, "width must be > 0"}
+
+      height <= 0 ->
+        {:error, "height must be > 0"}
+
+      not is_nil(quality) and not is_number(quality) ->
+        {:error, "quality must be a number"}
+
+      not is_nil(quality) and quality < 0 ->
+        {:error, "quality must be >= 0"}
+
+      not is_nil(quality) and quality > 100 ->
+        {:error, "quality must be <= 100"}
+
+      not is_nil(target_size) and target_size <= 0 ->
+        {:error, "target_size must be > 0"}
+
+      not is_nil(quality) and not is_nil(target_size) ->
+        {:error, "quality and target_size options are exclusive"}
+
+      not is_nil(effort) and effort < 0 ->
+        {:error, "effort must be >= 0"}
+
+      not is_nil(effort) and effort > 6 ->
+        {:error, "effort must be <= 6"}
+
+      true ->
+        :ok
     end
   end
 
