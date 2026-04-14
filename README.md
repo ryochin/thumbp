@@ -52,7 +52,7 @@ The package can be installed by adding `thumbp` to your list of dependencies in 
 ```elixir
 def deps do
   [
-    {:thumbp, "~> 0.1.0"}
+    {:thumbp, "~> 0.2.0"}
   ]
 end
 ```
