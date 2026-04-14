@@ -10,6 +10,7 @@ defmodule Thumbp do
     crate: "thumbp",
     base_url: "https://github.com/ryochin/thumbp/releases/download/v#{version}",
     force_build: System.get_env("RUSTLER_PRECOMPILATION_EXAMPLE_BUILD") in ["1", "true"],
+    nif_versions: ["2.15", "2.16", "2.17"],
     version: version
 
   @type body :: binary
