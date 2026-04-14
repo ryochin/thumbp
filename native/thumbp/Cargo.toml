@@ -13,8 +13,14 @@ crate-type = ["cdylib"]
 image = "0.25"
 jpeg-decoder = "0.3"
 libwebp-sys = "0.9"
-rustler = "0.37"
+rustler = { version = "0.37", default-features = false }
 webp = "0.3"
+
+[features]
+default = ["nif_version_2_15"]
+nif_version_2_15 = ["rustler/nif_version_2_15"]
+nif_version_2_16 = ["rustler/nif_version_2_16"]
+nif_version_2_17 = ["rustler/nif_version_2_17"]
 
 [profile.release]
 codegen-units = 1
