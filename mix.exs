@@ -43,7 +43,8 @@ defmodule Thumbp.MixProject do
       maintainers: ["Ryo Okamoto"],
       licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/ryochin/thumbp"},
-      files: ~w(mix.exs README.md benchmark lib native test LICENSE checksum-*.exs .formatter.exs)
+      files:
+        ~w(mix.exs README.md CHANGELOG.md benchmark lib native test LICENSE checksum-*.exs .formatter.exs)
     ]
   end
 
