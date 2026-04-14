@@ -6,7 +6,7 @@
 [![Hex.pm](https://img.shields.io/hexpm/dt/thumbp.svg)](https://hex.pm/packages/thumbp)
 [![License](https://img.shields.io/hexpm/l/thumbp.svg)](https://github.com/ryochin/thumbp/blob/main/LICENSE)
 
-Thumbp is a highly efficient thumbnail creation library for Elixir, designed to output with the [WebP](https://developers.google.com/speed/webp) image format for optimal speed and performance.
+Thumbp is a highly efficient thumbnail creation library for Elixir, producing [WebP](https://developers.google.com/speed/webp) output for optimal speed and performance.
 
 No need for ImageMagick, FFmpeg, libvips, or any other external libraries.
 
@@ -21,7 +21,7 @@ iex> Thumbp.create(content, 320, 240)
 {:ok, <<82, 73, 70, 70, 195, 152, 14, 0, 0, 87, 69, ...>>}
 ```
 
-The `width` and `height` parameters represent the potential maximum sizes, so they do not precisely define the actual dimensions of the image. This implies that the aspect ratio of the image will remain unchanged.
+The `width` and `height` parameters specify maximum bounds rather than exact dimensions; the aspect ratio is preserved.
 
 Adjust the quality with an optional parameter ranging from 0 to 100 (default is 60):
 
@@ -29,14 +29,14 @@ Adjust the quality with an optional parameter ranging from 0 to 100 (default is 
 iex> Thumbp.create(content, 160, 120, quality: 50)
 ```
 
-You can also define a target size, although which may increase the processing time by approximately 20-80%.
+You can also specify a target size, though this may increase processing time by approximately 20-80%.
 
 ```elixir
 iex> Thumbp.create(content, 160, 120, target_size: 4_096)    # set to 4KB
 ```
 
 > [!Tip]
-> The `quality` and `target_size` options are exclusive.
+> The `quality` and `target_size` options are mutually exclusive.
 
 Adjust the encoding effort from 0 (fastest) to 6 (smallest file size). The default is 3.
 
@@ -79,7 +79,7 @@ thumbp                 174.05
 image (libvips)        130.71 - 1.33x slower +1.91 ms
 ```
 
-on macOS Sequoia 15.7.3 arm64, Apple M4 (10) @ 4.46 GHz
+Measured on macOS Sequoia 15.7.3 arm64, Apple M4 (10) @ 4.46 GHz.
 
 Development
 -----------
@@ -87,7 +87,7 @@ Development
 ### Prerequisites
 
 > [!NOTE]
-> This library requires the [Rust](https://www.rust-lang.org/) Toolchain for compilation.
+> This library requires the [Rust](https://www.rust-lang.org/) toolchain for compilation.
 
 Follow the instructions at [www.rust-lang.org/tools/install](https://www.rust-lang.org/tools/install) to install Rust.
 

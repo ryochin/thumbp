@@ -66,7 +66,7 @@ fn try_encode_jpeg_scaled(
         return Ok(None);
     }
 
-    // Past this point the input is a recognized RGB JPEG — we commit to the fast
+    // Past this point the input is a recognized RGB JPEG -- we commit to the fast
     // path and propagate failures as errors instead of silently falling back.
 
     let (target_width, target_height) = calc_dimension_from(
@@ -82,21 +82,21 @@ fn try_encode_jpeg_scaled(
     // exactly on 1/4 scale and skips 15/16 of the IDCT work.
     decoder
         .scale(target_width as u16, target_height as u16)
-        .map_err(|e| err_str(format!("jpeg scale failed: {e}")))?;
+        .map_err(|e| err_str(format!("JPEG scale failed: {e}")))?;
 
     let pixels = decoder
         .decode()
-        .map_err(|e| err_str(format!("jpeg decode failed: {e}")))?;
+        .map_err(|e| err_str(format!("JPEG decode failed: {e}")))?;
 
     let decoded = decoder
         .info()
-        .ok_or_else(|| err_str("jpeg info unavailable after decode".to_string()))?;
+        .ok_or_else(|| err_str("JPEG info unavailable after decode".to_string()))?;
     let decoded_width = decoded.width as u32;
     let decoded_height = decoded.height as u32;
 
     let buf: ImageBuffer<Rgb<u8>, Vec<u8>> =
         ImageBuffer::from_raw(decoded_width, decoded_height, pixels)
-            .ok_or_else(|| err_str("jpeg pixel buffer size mismatch".to_string()))?;
+            .ok_or_else(|| err_str("JPEG pixel buffer size mismatch".to_string()))?;
 
     let thumb_raw = if decoded_width == target_width && decoded_height == target_height {
         // DCT scale already landed on the exact target size; skip the resize step.

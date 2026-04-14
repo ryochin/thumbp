@@ -112,12 +112,12 @@ defmodule ThumbpTest do
   # -- validation errors --
 
   test "returns an error with quality & target size", %{jpeg: jpeg} do
-    assert {:error, "quality and target_size options are exclusive"} =
+    assert {:error, "quality and target_size are mutually exclusive"} =
              Thumbp.create(jpeg, @width, @height, quality: 50, target_size: 5_000)
   end
 
   test "returns an error with unknown options", %{jpeg: jpeg} do
-    assert {:error, "unknown options"} =
+    assert {:error, "unknown options provided"} =
              Thumbp.create(jpeg, @width, @height, foo: 50, bar: 5_000)
   end
 

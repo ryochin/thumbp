@@ -20,7 +20,7 @@ defmodule Thumbp do
   @known_opts [:quality, :target_size, :effort]
 
   @doc """
-  Create a thumbnail image
+  Create a thumbnail image.
 
   ## Examples
 
@@ -32,15 +32,15 @@ defmodule Thumbp do
   def create(body, width, height), do: create(body, width, height, [])
 
   @doc """
-  Create a thumbnail image with options
+  Create a thumbnail image with options.
 
   ## Options
 
-  - `quality` - The quality ranges from 0 to 100, defaulting to 60.
+  - `quality` - Quality value from 0 to 100. Defaults to 60.
   - `target_size` - Target size in bytes. Increases processing time by approximately 20-80%.
-  - `effort` - Encoding effort from 0 (fastest) to 6 (smallest file), defaulting to 3.
+  - `effort` - Encoding effort from 0 (fastest) to 6 (smallest file size). Defaults to 3.
 
-  > The `quality` and `target_size` options are exclusive.
+  > The `quality` and `target_size` options are mutually exclusive.
 
   ## Examples
 
@@ -73,7 +73,7 @@ defmodule Thumbp do
   defp validate(body, width, height, quality, target_size, effort, opts) do
     cond do
       Keyword.keys(opts) -- @known_opts != [] ->
-        {:error, "unknown options"}
+        {:error, "unknown options provided"}
 
       not is_binary(body) ->
         {:error, "body must be a binary"}
@@ -100,7 +100,7 @@ defmodule Thumbp do
         {:error, "target_size must be > 0"}
 
       not is_nil(quality) and not is_nil(target_size) ->
-        {:error, "quality and target_size options are exclusive"}
+        {:error, "quality and target_size are mutually exclusive"}
 
       not is_nil(effort) and effort < 0 ->
         {:error, "effort must be >= 0"}
